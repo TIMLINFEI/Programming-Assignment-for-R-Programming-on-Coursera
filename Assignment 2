@@ -1,0 +1,14 @@
+>CacheMatrix <- function(a = matrix()) {
++   inv <- NULL
++   Set <- function(b) {
++     a <<- b
++     inv <<- NULL
++   }
++   Get <- function() a
++   setinverse <- function() inv <<- solve(a) 
++   getinverse <- function() inv
++   list(Set = Set,
++        Get = Get,
++        setinverse = setinverse,
++        getinverse = getinverse)
++ }
