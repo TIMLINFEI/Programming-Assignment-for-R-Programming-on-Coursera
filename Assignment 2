@@ -1,14 +1,56 @@
->CacheMatrix <- function(a = matrix()) {
-+   inv <- NULL
-+   Set <- function(b) {
-+     a <<- b
-+     inv <<- NULL
-+   }
-+   Get <- function() a
-+   setinverse <- function() inv <<- solve(a) 
-+   getinverse <- function() inv
-+   list(Set = Set,
-+        Get = Get,
-+        setinverse = setinverse,
-+        getinverse = getinverse)
-+ }
+# A function to keep a cached matrix
+makeCacheMatrix <- function(x=matrix()){
+    # Cache variable to maintain inverse of the matrix
+    inv_mat <- NULL
+    set <- function(y){
+          x <<- y
+          inv_mat <<- NULL
+     }
+
+    get <- function() x
+# Using the inverse to solve the inverse
+setinv_mat <- function(solve) inv_mat <<- solve
+getinv_mat <- function() inv_mat
+list(set = set, get = get,
+     setinv_mat = setinv_mat,
+     getinv_mat = getinv_mat)
+ }
+
+
+
+# To find inv_mat of a matrix
+cache <- function(x, ...){
+    # Check if the inverse of the matrix already exists
+    inv_mat <- x$getinv_mat()
+    
+    # If the inverse of the matrix already exists
+    if(!is.null(inv_mat)){
+        return(inv_mat)
+        }
+       
+       #If the inverse of the matrix has not existed
+       #Get the invertible matrix
+       input <- x$get()
+       
+       #Calculate the inverse of the matrix
+       inv_mat <- solve(input,...)
+       x$setinv_mat(inv_mat)
+       
+       #Show the inverse of matrix
+       inv_mat
+}
+
+#Check the function
+# Make a martix
+example <- matrix(1:4,nrow=2.ncol=2)
+# Show the matrix
+example
+      [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+#Use the cache and makeCacheMatrix function
+cache(makeCacheMatrix(example))
+# Get result 
+      [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
