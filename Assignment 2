@@ -42,15 +42,11 @@ cache <- function(x, ...){
 
 #Check the function
 # Make a martix
-example <- matrix(1:4,nrow=2.ncol=2)
+example <- matrix(1:4, nrow=2, ncol=2)
 # Show the matrix
 example
-      [,1] [,2]
-[1,]    1    3
-[2,]    2    4
-#Use the cache and makeCacheMatrix function
+
+#Use the cache and makeCacheMatrix function to get result
 cache(makeCacheMatrix(example))
-# Get result 
-      [,1] [,2]
-[1,]   -2  1.5
-[2,]    1 -0.5
+
+
